@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: splunk-httproute
+  namespace: splunk
+spec:
+  parentRefs:
+    - name: splunk-gateway
+  hostnames:
+    - "splunk.lab.local"
+  rules:
+    - backendRefs:
+        - name: splunk-s1-standalone-service
+          port: 8000
+          

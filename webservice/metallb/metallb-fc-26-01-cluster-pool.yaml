@@ -1,0 +1,12 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: fc-26-01-cluster-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 172.18.255.100-172.18.255.250
+  serviceAllocation:
+    namespaces:
+      - default
+      - kube-system

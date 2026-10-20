@@ -1,0 +1,28 @@
+# web-ingress-http.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-ingress-cilium
+  namespace: default
+  annotations:
+    ingress.cilium.io/loadbalancer-mode: "dedicated"
+spec:
+  ingressClassName: cilium
+  rules:
+  - host: netnerds.party
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-backend-svc
+            port:
+              number: 80
+      - path: /stinky
+        pathType: Prefix
+        backend:
+          service:
+            name: web-backend-stinky-svc
+            port:
+              number: 80

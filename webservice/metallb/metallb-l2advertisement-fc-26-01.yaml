@@ -1,0 +1,13 @@
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: fc-26-01-cluster-l2-external
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - fc-26-01-cluster-pool
+  serviceSelectors:
+  - matchLabels:
+      k8s-app: hubble-relay
+      app: fc-web-test
+      role: backend

@@ -1,0 +1,29 @@
+# web-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # If using ingress-nginx:
+    # kubernetes.io/ingress.class: "nginx"
+    # If using Cilium Ingress:
+    ingress.cilium.io/loadbalancer-mode: "dedicated"
+spec:
+  ingressClassName: cilium # "nginx" or "cilium" depending on your controller
+  tls:
+  - hosts:
+    - netnerds.party
+    secretName: app-tls-cert
+  rules:
+  - host: netnerds.party
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-backend-svc
+            port:
+              number: 80
